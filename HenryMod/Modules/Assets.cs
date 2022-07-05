@@ -30,7 +30,7 @@ namespace RegMIAMod.Modules
         private static string[] assetNames = new string[0];
 
         // todo: CHANGE THIS
-        private const string assetbundleName = "myassetbundle";
+        private const string assetbundleName = "assetbundle_todo_replace";
         //change this to your project's name if/when you've renamed it
         private const string csProjName = "RegMod";
         
