@@ -1,8 +1,8 @@
-﻿using HenryMod.SkillStates.BaseStates;
+﻿using RegMIAMod.SkillStates.BaseStates;
 using RoR2;
 using UnityEngine;
 
-namespace HenryMod.SkillStates
+namespace RegMIAMod.SkillStates
 {
     public class SlashCombo : BaseMeleeAttack
     {

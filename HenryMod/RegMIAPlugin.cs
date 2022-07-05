@@ -1,5 +1,5 @@
 ﻿using BepInEx;
-using HenryMod.Modules.Survivors;
+using RegMIAMod.Modules.Survivors;
 using R2API.Utils;
 using RoR2;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Security.Permissions;
 [module: UnverifiableCode]
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
 
-namespace HenryMod
+namespace RegMIAMod
 {
     [BepInDependency("com.bepis.r2api", BepInDependency.DependencyFlags.HardDependency)]
     [NetworkCompatibility(CompatibilityLevel.EveryoneMustHaveMod, VersionStrictness.EveryoneNeedSameModVersion)]
@@ -22,19 +22,19 @@ namespace HenryMod
         "UnlockableAPI"
     })]
 
-    public class HenryPlugin : BaseUnityPlugin
+    public class RegMIAPlugin : BaseUnityPlugin
     {
         // if you don't change these you're giving permission to deprecate the mod-
         //  please change the names to your own stuff, thanks
         //   this shouldn't even have to be said
-        public const string MODUID = "com.rob.HenryMod";
-        public const string MODNAME = "HenryMod";
-        public const string MODVERSION = "1.0.0";
+        public const string MODUID = "com.AweMods.RegMod";
+        public const string MODNAME = "RegMod";
+        public const string MODVERSION = "0.1.0";
 
         // a prefix for name tokens to prevent conflicts- please capitalize all name tokens for convention
-        public const string DEVELOPER_PREFIX = "ROB";
+        public const string DEVELOPER_PREFIX = "AWEMODS";
 
-        public static HenryPlugin instance;
+        public static RegMIAPlugin instance;
 
         private void Awake()
         {
@@ -50,7 +50,7 @@ namespace HenryMod
             Modules.ItemDisplays.PopulateDisplays(); // collect item display prefabs for use in our display rules
 
             // survivor initialization
-            new MyCharacter().Initialize();
+            new RegCharacter().Initialize();
 
             // now make a content pack and add it- this part will change with the next update
             new Modules.ContentPacks().Initialize();
