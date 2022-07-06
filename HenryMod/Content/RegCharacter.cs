@@ -10,15 +10,16 @@ namespace RegMIAMod.Modules.Survivors
 {
     internal class RegCharacter : SurvivorBase
     {
-        public override string bodyName => "Reg";
+        // todo: update all of the names here, including the BodyInfo fields, *after* making and naming your own model
+        public override string bodyName => "Henry";
 
-        public const string REG_PREFIX = RegMIAPlugin.DEVELOPER_PREFIX + "_REG_BODY_";
+        public const string REG_PREFIX = RegMIAPlugin.DEVELOPER_PREFIX + "_HENRY_BODY_";
         //used when registering your survivor's language tokens
         public override string survivorTokenPrefix => REG_PREFIX;
 
         public override BodyInfo bodyInfo { get; set; } = new BodyInfo
         {
-            bodyName = "RegBody",
+            bodyName = "HenryBody",
             bodyNameToken = RegMIAPlugin.DEVELOPER_PREFIX + "_HENRY_BODY_NAME",
             subtitleNameToken = RegMIAPlugin.DEVELOPER_PREFIX + "_HENRY_BODY_SUBTITLE",
 
