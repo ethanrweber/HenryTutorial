@@ -1,26 +1,27 @@
 ﻿using BepInEx.Configuration;
-using HenryMod.Modules.Characters;
+using RegMIAMod.Modules.Characters;
 using RoR2;
 using RoR2.Skills;
 using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HenryMod.Modules.Survivors
+namespace RegMIAMod.Modules.Survivors
 {
-    internal class MyCharacter : SurvivorBase
+    internal class RegCharacter : SurvivorBase
     {
+        // todo: update all of the names here, including the BodyInfo fields, *after* making and naming your own model
         public override string bodyName => "Henry";
 
-        public const string HENRY_PREFIX = HenryPlugin.DEVELOPER_PREFIX + "_HENRY_BODY_";
+        public const string REG_PREFIX = RegMIAPlugin.DEVELOPER_PREFIX + "_HENRY_BODY_";
         //used when registering your survivor's language tokens
-        public override string survivorTokenPrefix => HENRY_PREFIX;
+        public override string survivorTokenPrefix => REG_PREFIX;
 
         public override BodyInfo bodyInfo { get; set; } = new BodyInfo
         {
             bodyName = "HenryBody",
-            bodyNameToken = HenryPlugin.DEVELOPER_PREFIX + "_HENRY_BODY_NAME",
-            subtitleNameToken = HenryPlugin.DEVELOPER_PREFIX + "_HENRY_BODY_SUBTITLE",
+            bodyNameToken = RegMIAPlugin.DEVELOPER_PREFIX + "_HENRY_BODY_NAME",
+            subtitleNameToken = RegMIAPlugin.DEVELOPER_PREFIX + "_HENRY_BODY_SUBTITLE",
 
             characterPortrait = Assets.mainAssetBundle.LoadAsset<Texture>("texHenryIcon"),
             bodyColor = Color.white,
@@ -87,7 +88,7 @@ namespace HenryMod.Modules.Survivors
         public override void InitializeSkills()
         {
             Modules.Skills.CreateSkillFamilies(bodyPrefab);
-            string prefix = HenryPlugin.DEVELOPER_PREFIX;
+            string prefix = RegMIAPlugin.DEVELOPER_PREFIX;
 
             #region Primary
             //Creates a skilldef for a typical primary 
@@ -203,7 +204,7 @@ namespace HenryMod.Modules.Survivors
             List<SkinDef> skins = new List<SkinDef>();
 
             #region DefaultSkin
-            SkinDef defaultSkin = Modules.Skins.CreateSkinDef(HenryPlugin.DEVELOPER_PREFIX + "_HENRY_BODY_DEFAULT_SKIN_NAME",
+            SkinDef defaultSkin = Modules.Skins.CreateSkinDef(RegMIAPlugin.DEVELOPER_PREFIX + "_HENRY_BODY_DEFAULT_SKIN_NAME",
                 Assets.mainAssetBundle.LoadAsset<Sprite>("texMainSkin"),
                 defaultRenderers,
                 mainRenderer,

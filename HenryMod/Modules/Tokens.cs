@@ -1,48 +1,55 @@
 ﻿using R2API;
 using System;
 
-namespace HenryMod.Modules
+namespace RegMIAMod.Modules
 {
     internal static class Tokens
     {
+        // TODO: finish most of these
         internal static void AddTokens()
         {
-            #region Henry
-            string prefix = HenryPlugin.DEVELOPER_PREFIX + "_HENRY_BODY_";
+            #region Reg
+            string prefix = RegMIAPlugin.DEVELOPER_PREFIX + "_REG_BODY_";
 
-            string desc = "Henry is a skilled fighter who makes use of a wide arsenal of weaponry to take down his foes.<color=#CCD3E0>" + Environment.NewLine + Environment.NewLine;
-            desc = desc + "< ! > Sword is a good all-rounder while Boxing Gloves are better for laying a beatdown on more powerful foes." + Environment.NewLine + Environment.NewLine;
-            desc = desc + "< ! > Pistol is a powerful anti air, with its low cooldown and high damage." + Environment.NewLine + Environment.NewLine;
-            desc = desc + "< ! > Roll has a lingering armor buff that helps to use it aggressively." + Environment.NewLine + Environment.NewLine;
-            desc = desc + "< ! > Bomb can be used to wipe crowds with ease." + Environment.NewLine + Environment.NewLine;
+            // todo: add style tags for readability
+            string desc = "Reg is a robotic being who appears to be a little boy." + Environment.NewLine + Environment.NewLine +
+                "His actual age, origins, and even name are unknown because he cannot recall anything about his life before his encounter with Riko." + Environment.NewLine + Environment.NewLine +
+                "He is named after a dog Riko used to have." + Environment.NewLine + Environment.NewLine + 
+                "< ! > Punch is a solid basic attack that deals moderate damage at close range." + Environment.NewLine + Environment.NewLine + 
+                "< ! > Extendable Arms is a good single-target anti-air attack, and it is also useful for mobility." + Environment.NewLine + Environment.NewLine +
+                "< ! > SHIFT ABILITY TODO" + Environment.NewLine + Environment.NewLine +
+                "< ! > Incinerator can be used to decimate enemies within line of sight, but has a limited number of uses per stage." + Environment.NewLine + Environment.NewLine
+                ;
 
-            string outro = "..and so he left, searching for a new identity.";
-            string outroFailure = "..and so he vanished, forever a blank slate.";
+            string lore = "TODO";
 
-            LanguageAPI.Add(prefix + "NAME", "Henry");
+            string outro = "..and so he remained in the abyss, having succeeded in discovering his true self.";
+            string outroFailure = "..and so he vanished, forever a blank slate."; // thanks Henry, this fits with Reg too lol
+
+            LanguageAPI.Add(prefix + "NAME", "Reg");
             LanguageAPI.Add(prefix + "DESCRIPTION", desc);
-            LanguageAPI.Add(prefix + "SUBTITLE", "The Chosen One");
-            LanguageAPI.Add(prefix + "LORE", "sample lore");
+            LanguageAPI.Add(prefix + "SUBTITLE", "Treasure of the Deep");
+            LanguageAPI.Add(prefix + "LORE", lore);
             LanguageAPI.Add(prefix + "OUTRO_FLAVOR", outro);
             LanguageAPI.Add(prefix + "OUTRO_FAILURE", outroFailure);
 
             #region Skins
             LanguageAPI.Add(prefix + "DEFAULT_SKIN_NAME", "Default");
-            LanguageAPI.Add(prefix + "MASTERY_SKIN_NAME", "Alternate");
+            LanguageAPI.Add(prefix + "MASTERY_SKIN_NAME", "Out of Control");
             #endregion
 
             #region Passive
-            LanguageAPI.Add(prefix + "PASSIVE_NAME", "Henry passive");
+            LanguageAPI.Add(prefix + "PASSIVE_NAME", "Reg passive");
             LanguageAPI.Add(prefix + "PASSIVE_DESCRIPTION", "Sample text.");
             #endregion
 
             #region Primary
-            LanguageAPI.Add(prefix + "PRIMARY_SLASH_NAME", "Sword");
+            LanguageAPI.Add(prefix + "PRIMARY_SLASH_NAME", "Punch");
             LanguageAPI.Add(prefix + "PRIMARY_SLASH_DESCRIPTION", Helpers.agilePrefix + $"Swing forward for <style=cIsDamage>{100f * StaticValues.swordDamageCoefficient}% damage</style>.");
             #endregion
 
             #region Secondary
-            LanguageAPI.Add(prefix + "SECONDARY_GUN_NAME", "Handgun");
+            LanguageAPI.Add(prefix + "SECONDARY_GUN_NAME", "Extendable Arms");
             LanguageAPI.Add(prefix + "SECONDARY_GUN_DESCRIPTION", Helpers.agilePrefix + $"Fire a handgun for <style=cIsDamage>{100f * StaticValues.gunDamageCoefficient}% damage</style>.");
             #endregion
 

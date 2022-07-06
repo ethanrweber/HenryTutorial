@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HenryMod.Modules
+namespace RegMIAMod.Modules
 {
     internal static class StaticValues
     {

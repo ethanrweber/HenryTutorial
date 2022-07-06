@@ -2,9 +2,9 @@
 using RoR2;
 using System.Collections.Generic;
 using UnityEngine;
-using HenryMod.Modules.Characters;
+using RegMIAMod.Modules.Characters;
 
-namespace HenryMod.Modules {
+namespace RegMIAMod.Modules {
     // module for creating body prefabs and whatnot
     // recommended to simply avoid touching this unless you REALLY need to
     // oh boy do I need to
@@ -31,6 +31,7 @@ namespace HenryMod.Modules {
 
         public static GameObject CreateBodyPrefab(string bodyName, string modelName, BodyInfo bodyInfo)
         {
+            Log.Debug($"{nameof(CreateBodyPrefab)} --- {nameof(bodyName)}: \"{bodyName}\"; {nameof(modelName)}: \"{modelName}\"; {nameof(bodyInfo)}: \"{bodyInfo}\";");
             GameObject clonedBody = RoR2.LegacyResourcesAPI.Load<GameObject>("Prefabs/CharacterBodies/" + bodyInfo.bodyNameToClone + "Body");
             if (!clonedBody)
             {
@@ -44,10 +45,10 @@ namespace HenryMod.Modules {
             GameObject model = null;
             if (modelName != "mdl")
             {
-                model = Assets.LoadSurvivorModel(modelName);
-                if (model == null) model = newBodyPrefab.GetComponentInChildren<CharacterModel>().gameObject;
+                model = Assets.LoadSurvivorModel(modelName) ?? newBodyPrefab.GetComponentInChildren<CharacterModel>().gameObject;
 
-                    modelBaseTransform = AddCharacterModelToSurvivorBody(newBodyPrefab, model.transform, bodyInfo);
+                Log.Debug($"{nameof(CreateBodyPrefab)} --- {nameof(model)}: \"{model}\";");
+                modelBaseTransform = AddCharacterModelToSurvivorBody(newBodyPrefab, model.transform, bodyInfo);
             }
 
             #region CharacterBody
@@ -135,6 +136,8 @@ namespace HenryMod.Modules {
 
         private static Transform AddCharacterModelToSurvivorBody(GameObject bodyPrefab, Transform modelTransform, BodyInfo bodyInfo) 
         {
+            Log.Debug($"{nameof(AddCharacterModelToSurvivorBody)} --- {nameof(bodyPrefab)}: \"{bodyPrefab}\"; {nameof(modelTransform)}: \"{modelTransform}\"; {nameof(bodyInfo)}: \"{bodyInfo}\";");
+
             for (int i = bodyPrefab.transform.childCount - 1; i >= 0; i--) {
 
                 Object.DestroyImmediate(bodyPrefab.transform.GetChild(i).gameObject);

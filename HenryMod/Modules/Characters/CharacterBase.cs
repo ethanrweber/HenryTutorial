@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace HenryMod.Modules.Characters
+namespace RegMIAMod.Modules.Characters
 {
     internal abstract class CharacterBase
     {

@@ -1,0 +1,33 @@
+﻿All ideas relevant to the project
+
+
+SKILLS
+--- these ideas come from watching the show and from reading the MIA fandom wiki page for Reg ---
+- Passive:
+	- Super Durability:
+		"Reg's body is extremely durable. <description of skill>"
+		- idea 1: 
+			- take x % less damage from every hit
+		- idea 2:
+			- gain x % more base healing from every healing source
+	- Recharge:
+		- idea 1:
+			- gain an additional charge of Incinerator on taking x amount of electricity damage, or when lightning strikes nearby (overloading enemies, royal capacitor, etc)
+		- idea 2: 
+			- gain an additional charge of Incinerator on activating the teleporter
+		- mixed idea:
+			- could also potentially gain additional charges from certain equipment items
+- Primary:
+	- Punch:
+- Secondary:
+	- Extendable arms:
+- Utility:
+	- ?
+- Special:
+	- Incinerator:
+		- very strong laser attack, pierces through all enemies in line of sight for an unlimited distance
+		- hold down button to charge up for increased damage and width of beam
+			- limit max width based on a time limit for holding down the button
+			- maybe increase max time/width limit with Backup Magazine?	
+		- average cooldown, but limited number of uses per stage (similar to Captain's orbital supply beacon)
+			- in addition, consider an alternate Passive ability 
