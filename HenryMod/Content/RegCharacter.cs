@@ -1,5 +1,6 @@
 ﻿using BepInEx.Configuration;
 using RegMIAMod.Modules.Characters;
+using RegMod.SkillStates.Reg;
 using RoR2;
 using RoR2.Skills;
 using System;
@@ -95,7 +96,7 @@ namespace RegMIAMod.Modules.Survivors
             SkillDef primarySkillDef = Modules.Skills.CreateSkillDef(new SkillDefInfo(prefix + "_HENRY_BODY_PRIMARY_SLASH_NAME",
                                                                                       prefix + "_HENRY_BODY_PRIMARY_SLASH_DESCRIPTION",
                                                                                       Modules.Assets.mainAssetBundle.LoadAsset<Sprite>("texPrimaryIcon"),
-                                                                                      new EntityStates.SerializableEntityStateType(typeof(SkillStates.SlashCombo)),
+                                                                                      new EntityStates.SerializableEntityStateType(typeof(Punch)),
                                                                                       "Weapon",
                                                                                       true));
 

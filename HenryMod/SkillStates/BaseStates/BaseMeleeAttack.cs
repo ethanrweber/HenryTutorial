@@ -1,4 +1,5 @@
 ﻿using EntityStates;
+using R2API;
 using RoR2;
 using RoR2.Audio;
 using System;
@@ -49,6 +50,8 @@ namespace RegMIAMod.SkillStates.BaseStates
         public override void OnEnter()
         {
             base.OnEnter();
+            Log.Debug("BaseMeleeAttack OnEnter");
+
             this.duration = this.baseDuration / this.attackSpeedStat;
             this.earlyExitTime = this.baseEarlyExitTime / this.attackSpeedStat;
             this.hasFired = false;
@@ -60,10 +63,19 @@ namespace RegMIAMod.SkillStates.BaseStates
             HitBoxGroup hitBoxGroup = null;
             Transform modelTransform = base.GetModelTransform();
 
+            Log.Debug($"OnEnter: modelTransform: {modelTransform}; hitboxName: {this.hitboxName}");
+
             if (modelTransform)
             {
-                hitBoxGroup = Array.Find<HitBoxGroup>(modelTransform.GetComponents<HitBoxGroup>(), (HitBoxGroup element) => element.groupName == this.hitboxName);
+                Log.Debug($"modelTransform not null, get hitBoxGroup");
+                var hbgComponents = modelTransform.GetComponents<HitBoxGroup>();
+                Log.Debug($"components: {hbgComponents}");
+                for (int i = 0; i < hbgComponents.Length; i++)
+                    Log.Debug($"component {i}: {hbgComponents[i]}");
+
+                hitBoxGroup = Array.Find<HitBoxGroup>(hbgComponents, (HitBoxGroup element) => element.groupName == this.hitboxName);
             }
+            Log.Debug($"hitBoxGroup: {hitBoxGroup}");
 
             this.PlayAttackAnimation();
 
@@ -80,6 +92,7 @@ namespace RegMIAMod.SkillStates.BaseStates
             this.attack.hitBoxGroup = hitBoxGroup;
             this.attack.isCrit = base.RollCrit();
             this.attack.impactSound = this.impactSound;
+            DamageAPI.AddModdedDamageType(attack, RegMIAPlugin.regDamage);
         }
 
         protected virtual void PlayAttackAnimation()
@@ -98,11 +111,13 @@ namespace RegMIAMod.SkillStates.BaseStates
 
         protected virtual void PlaySwingEffect()
         {
-            EffectManager.SimpleMuzzleFlash(this.swingEffectPrefab, base.gameObject, this.muzzleString, true);
+            //Log.Debug($"PlaySwingEffect: swingEffectPrefab: {this.swingEffectPrefab}, gameObject: {base.gameObject}, muzzleString: {this.muzzleString}");
+            //EffectManager.SimpleMuzzleFlash(this.swingEffectPrefab, base.gameObject, this.muzzleString, true);
         }
 
         protected virtual void OnHitEnemyAuthority()
         {
+            Log.Debug("OnHitEnemyAuthority");
             Util.PlaySound(this.hitSoundString, base.gameObject);
 
             if (!this.hasHopped)
@@ -126,13 +141,17 @@ namespace RegMIAMod.SkillStates.BaseStates
 
         private void FireAttack()
         {
+            Log.Debug("FireAttack!");
+            Log.Debug($"base.isAuthority: {base.isAuthority}");
             if (!this.hasFired)
             {
+                Log.Debug($"Actually fire the attack");
                 this.hasFired = true;
                 Util.PlayAttackSpeedSound(this.swingSoundString, base.gameObject, this.attackSpeedStat);
 
                 if (base.isAuthority)
                 {
+                    Log.Debug($"Firing the attack: play swing effect / add recoil");
                     this.PlaySwingEffect();
                     base.AddRecoil(-1f * this.attackRecoil, -2f * this.attackRecoil, -0.5f * this.attackRecoil, 0.5f * this.attackRecoil);
                 }
@@ -140,11 +159,20 @@ namespace RegMIAMod.SkillStates.BaseStates
 
             if (base.isAuthority)
             {
+
+                Log.Debug($"Attempt attack: {this.attack}");
+                Log.Debug($"-- attack hitBoxGroup: {this.attack?.hitBoxGroup}");
+                Log.Debug($"-- attack hitBoxGroup name: {this.attack?.hitBoxGroup?.name}");
+                Log.Debug($"-- attack hitBoxGroup hitboxes: {this.attack?.hitBoxGroup?.hitBoxes}");
+                Log.Debug($"-- attack hitBoxGroup hitboxes length: {this.attack?.hitBoxGroup?.hitBoxes?.Length}");
                 if (this.attack.Fire())
                 {
+                    Log.Debug("Attack success!");
                     this.OnHitEnemyAuthority();
                 }
             }
+
+            Log.Debug($"End FireAttack()");
         }
 
         protected virtual void SetNextState()
@@ -182,16 +210,28 @@ namespace RegMIAMod.SkillStates.BaseStates
                 if (this.animator) this.animator.SetFloat("Swing.playbackRate", 0f);
             }
 
-            if (this.stopwatch >= (this.duration * this.attackStartTime) && this.stopwatch <= (this.duration * this.attackEndTime))
+            bool attackConditionOne = this.stopwatch >= (this.duration * this.attackStartTime),
+                 attackConditionTwo = this.stopwatch <= (this.duration * this.attackEndTime);
+            
+            if (attackConditionOne && attackConditionTwo)
             {
+                Log.Debug($"FixedUpdate: cond1: {attackConditionOne}; cond2: {attackConditionTwo}; stopwatch: {this.stopwatch}; duration: {this.duration}; start: {this.attackStartTime}; end: {this.attackEndTime}");
                 this.FireAttack();
             }
 
-            if (this.stopwatch >= (this.duration - this.earlyExitTime) && base.isAuthority)
+            bool attackConditionThree = this.stopwatch >= (this.duration - this.earlyExitTime);
+            if (attackConditionThree && base.isAuthority)
             {
+                Log.Debug($"FixedUpdate: cond3: {attackConditionThree}; isAuthority: {base.isAuthority}");
+                Log.Debug($"FixedUpdate: inputBank.skill1.down: {base.inputBank.skill1.down}");
                 if (base.inputBank.skill1.down)
                 {
-                    if (!this.hasFired) this.FireAttack();
+                    Log.Debug($"FixedUpdate: this.hasFired: {this.hasFired}");
+                    if (!this.hasFired)
+                    {
+                        this.FireAttack();
+                    }
+
                     this.SetNextState();
                     return;
                 }

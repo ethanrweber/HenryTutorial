@@ -2,6 +2,7 @@
 using RegMIAMod.SkillStates.BaseStates;
 using System.Collections.Generic;
 using System;
+using RegMod.SkillStates.Reg;
 
 namespace RegMIAMod.Modules
 {
@@ -11,6 +12,7 @@ namespace RegMIAMod.Modules
         {
             Modules.Content.AddEntityState(typeof(BaseMeleeAttack));
             Modules.Content.AddEntityState(typeof(SlashCombo));
+            Modules.Content.AddEntityState(typeof(Punch));
 
             Modules.Content.AddEntityState(typeof(Shoot));
 

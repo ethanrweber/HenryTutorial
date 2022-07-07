@@ -5,6 +5,7 @@ using RoR2;
 using System.Collections.Generic;
 using System.Security;
 using System.Security.Permissions;
+using R2API;
 
 [module: UnverifiableCode]
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, SkipVerification = true)]
@@ -19,7 +20,8 @@ namespace RegMIAMod
         "PrefabAPI",
         "LanguageAPI",
         "SoundAPI",
-        "UnlockableAPI"
+        "UnlockableAPI",
+        "DamageAPI"
     })]
 
     public class RegMIAPlugin : BaseUnityPlugin
@@ -35,12 +37,14 @@ namespace RegMIAMod
         public const string DEVELOPER_PREFIX = "AWEMODS";
 
         public static RegMIAPlugin instance;
+        public static DamageAPI.ModdedDamageType regDamage;
 
         private void Awake()
         {
             instance = this;
 
             Log.Init(Logger);
+            regDamage = DamageAPI.ReserveDamageType();
             Modules.Assets.Initialize(); // load assets and read config
             Modules.Config.ReadConfig();
             Modules.States.RegisterStates(); // register states for networking
